@@ -7,13 +7,20 @@ using System.Threading.Tasks;
 
 namespace AddMeFast
 {
-
+    public class Test
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
     class Program
     {
         static string selectedAcc;
 
         static void Main(string[] args)
         {
+        
+
+
             Manager manager = new Manager();
             AddMeFast ad = new AddMeFast();
 
@@ -38,6 +45,28 @@ namespace AddMeFast
             dr.Account = selectedAcc;
             dr.InitDriver(show == "y");
 
+            Console.WriteLine("add y/n");
+            if (Console.ReadLine() == "y")
+            {
+                if (File.Exists("data/" + selectedAcc + ".xml"))
+                {
+                    dr.Driver.Url = ad.home;
+                    dr.MakeLogin("data/" + selectedAcc + ".xml");
+                }
+                Console.WriteLine("do login ");
+                Console.ReadLine();
+                ad.Driver = dr.Driver;
+                Console.WriteLine("start");
+
+                var accounts = File.ReadAllLines(@"C:\Users\mauguzun\Desktop\stat.txt");
+                foreach (var acc in accounts)
+                {
+                    ad.AddAccount(acc);
+                }
+
+            }
+
+
 
             var pinAcc = Directory.GetFiles("pins/");
             dr.Driver.Url = "https://pinterest.com";
@@ -51,7 +80,7 @@ namespace AddMeFast
                 int pinAccCount = 0;
                 Int32.TryParse(Console.ReadLine(), out pinAccCount);
                 dr.MakeLogin(pinAcc[pinAccCount]);
-                dr.Driver.Url = "http://pinterest.com";
+                dr.Driver.Url = "https://pinterest.com";
                 Console.WriteLine(dr.Driver.FindElementsByCssSelector("#HeaderContent").Count() != 0);
                 if (dr.Driver.FindElementsByCssSelector("#HeaderContent").Count() != 0)
                 {
@@ -78,7 +107,7 @@ namespace AddMeFast
             var checkPins = dr.Driver.FindElementsByCssSelector(".points_count");
             if (checkPins.Count == 0)
             {
-                dr.InitDriver(true);
+
                 while (true)
                 {
                     Console.WriteLine("logined y/n");
@@ -87,7 +116,12 @@ namespace AddMeFast
                     if (Console.ReadLine() == "y")
                     {
                         dr.Save();
+
                         break;
+                    }
+                    else
+                    {
+                        dr.InitDriver(true);
                     }
                 }
             }

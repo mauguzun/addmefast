@@ -1,0 +1,4 @@
+[1202/195255.028:ERROR:prune_crash_reports.cc(34)] PruneCrashReportDatabase: Failed to get pending reports
+[1230/115832.018:ERROR:prune_crash_reports.cc(35)] PruneCrashReportDatabase: Failed to get pending reports
+[0205/084102.021:ERROR:prune_crash_reports.cc(35)] PruneCrashReportDatabase: Failed to get pending reports
+[0205/091011.578:ERROR:crash_report_database_win.cc(558)] GetFileAttributes C:\Users\mauguzun\AppData\Local\Temp\scoped_dir9892_1024937763\Crashpad: The system cannot find the file specified. (0x2)

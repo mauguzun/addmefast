@@ -1,4 +1,5 @@
 ﻿using OpenQA.Selenium.Remote;
+using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -40,13 +41,42 @@ namespace AddMeFast
 
         }
 
+        protected void Bonuses()
+        {
+            Driver.Url = "http://addmefast.com/bonus_points";
+            var data = Driver.FindElementsByCssSelector(".daily-bonus-block font");
+
+            if (data.Count() > 0)
+            {
+                Console.WriteLine(data[0].Text);
+            }
+
+            if (Driver.FindElementsById("subscribeButton").Count() != 0 )
+            {
+                Driver.FindElementById("subscribeButton").Click();
+                Console.Title = " bonuses ";
+            }
+            
+
+
+
+        }
        public void Repin()
         {
             while(true)
             {
                 try
                 {
+                    // 
+                    Bonuses();
+
+
                     Driver.Url = "http://addmefast.com/free_points/pinterest_repin";
+                    Driver.FindElementByTagName("body").SendKeys(OpenQA.Selenium.Keys.ArrowDown);
+                    Driver.FindElementByTagName("body").SendKeys(OpenQA.Selenium.Keys.ArrowDown);
+                    Driver.FindElementByTagName("body").SendKeys(OpenQA.Selenium.Keys.ArrowDown);
+                    Driver.FindElementByTagName("body").SendKeys(OpenQA.Selenium.Keys.ArrowDown);
+                    Driver.FindElementByTagName("body").SendKeys(OpenQA.Selenium.Keys.ArrowDown);
                     Driver.FindElementByTagName("body").SendKeys(OpenQA.Selenium.Keys.ArrowDown);
                //     Driver.FindElementByTagName("body").SendKeys(OpenQA.Selenium.Keys.ArrowDown);
                     var points = Driver.FindElementsByCssSelector(".points_count");
@@ -62,12 +92,25 @@ namespace AddMeFast
 
 
                     Thread.Sleep(new TimeSpan(0, 0, 5));
+
+             
+                  
                     Driver.FindElementByCssSelector("a.single_like_button").Click();
 
                     Driver.SwitchTo().Window(Driver.WindowHandles.Last());
 
                     Thread.Sleep(new TimeSpan(0, 0, 7));
                     var boards = Driver.FindElementsByCssSelector("div[data-test-id='boardWithoutSection']");
+                    var save = Driver.FindElementsByCssSelector("[data-test-id='PinBetterSaveButton']");
+                    if (save != null && save.Count > 0  )
+                    {
+                        save[0].Click();
+                        Thread.Sleep(new TimeSpan(0, 0, 4));
+                        Console.WriteLine("pinned" + DateTime.Now.ToShortTimeString());
+                        Driver.Close();
+                        Thread.Sleep(new TimeSpan(0, 0, 2));
+                    }
+                   
                     if (boards.Count == 0)
                     {
                         Console.WriteLine("not boards");
@@ -104,5 +147,38 @@ namespace AddMeFast
         }
       
 
+        public void AddAccount(string account)
+        {
+            try
+            {
+                Driver.Url = "http://addmefast.com/add_edit_sites";
+
+                var select = Driver.FindElementById("l_type");
+                var selectElement = new SelectElement(select);
+                selectElement.SelectByText("Pinterest Followers");
+                Driver.FindElementById("l_url").SendKeys(account);
+         
+                Driver.FindElementById("l_cpc").SendKeys(OpenQA.Selenium.Keys.Backspace);
+                Driver.FindElementById("l_cpc").SendKeys(OpenQA.Selenium.Keys.Backspace);
+                Driver.FindElementById("l_cpc").SendKeys(OpenQA.Selenium.Keys.Backspace);
+                Driver.FindElementById("l_cpc").SendKeys("5");
+                Driver.FindElementByTagName("body").SendKeys(OpenQA.Selenium.Keys.ArrowDown);
+                Driver.FindElementByTagName("body").SendKeys(OpenQA.Selenium.Keys.ArrowDown);
+                Driver.FindElementByTagName("body").SendKeys(OpenQA.Selenium.Keys.ArrowDown);
+                Driver.FindElementByTagName("body").SendKeys(OpenQA.Selenium.Keys.ArrowDown);
+                Driver.FindElementByTagName("body").SendKeys(OpenQA.Selenium.Keys.ArrowDown);
+       
+                Driver.FindElementByCssSelector("input[type='submit']").Click();
+                Thread.Sleep(new TimeSpan(0, 0, 5));
+
+            }
+            catch
+            {
+
+            }
+          
+          
+
+        }
     }
 }
