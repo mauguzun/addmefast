@@ -107,9 +107,16 @@ namespace AddMeFast
                     Driver.SwitchTo().Window(Driver.WindowHandles.Last());
                     ((IJavaScriptExecutor)Driver).ExecuteScript("window.resizeTo(2000, 1000);");
 
-                    Thread.Sleep(new TimeSpan(0, 0, 7));
+                    Thread.Sleep(new TimeSpan(0, 0, 6));
+                   
+
+                    if(Driver.FindElementsByCssSelector("[data-test-id='SaveButton']").Count != 0)
+                    {
+                        Driver.FindElementsByCssSelector("[data-test-id='SaveButton']")[0].Click();
+                    }
+                    Thread.Sleep(new TimeSpan(0, 0, 1));
                     var boards = Driver.FindElementsByCssSelector("div[data-test-id='boardWithoutSection']");
-                    var save = Driver.FindElementsByCssSelector("[data-test-id='SaveButton']");
+                    var save = Driver.FindElementsByCssSelector("[data-test-id='PinBetterSaveButton']");
                     if (save != null && save.Count > 0  )
                     {
                     
