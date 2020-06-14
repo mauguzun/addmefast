@@ -25,7 +25,8 @@ namespace AddMeFast
             if (!visible)
                 options.AddArguments("headless");
 
-            options.AddArgument("--window-size=1920,4080");
+            options.AddArguments("--start-maximized");
+
 
             Driver = new ChromeDriver(driverService, options);
 

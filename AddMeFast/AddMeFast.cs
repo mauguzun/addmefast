@@ -1,4 +1,5 @@
-﻿using OpenQA.Selenium.Remote;
+﻿using OpenQA.Selenium;
+using OpenQA.Selenium.Remote;
 using OpenQA.Selenium.Support.UI;
 using System;
 using System.Collections.Generic;
@@ -23,6 +24,7 @@ namespace AddMeFast
         public void MakeLogin()
         {
             Driver.Url = this.home;
+            Driver.Url = this.home+"/login";
             try
 
             {
@@ -44,7 +46,7 @@ namespace AddMeFast
         protected void Bonuses()
         {
             Driver.Url = "http://addmefast.com/bonus_points";
-            var data = Driver.FindElementsByCssSelector(".daily-bonus-block font");
+            var data = Driver.FindElementsByCssSelector("#subscribeButton");
 
             if (data.Count() > 0)
             {
@@ -71,7 +73,12 @@ namespace AddMeFast
                     Bonuses();
 
 
-                    Driver.Url = "http://addmefast.com/free_points/pinterest_repin";
+                    Driver.Url = "https://addmefast.com/free_points/pinterest_save";
+
+                    if(Driver.FindElementsByClassName("footer-add").Count == 0)
+                    {
+                        Thread.Sleep(new TimeSpan(0, 0, 10));
+                    }
                     Driver.FindElementByTagName("body").SendKeys(OpenQA.Selenium.Keys.ArrowDown);
                     Driver.FindElementByTagName("body").SendKeys(OpenQA.Selenium.Keys.ArrowDown);
                     Driver.FindElementByTagName("body").SendKeys(OpenQA.Selenium.Keys.ArrowDown);
@@ -98,15 +105,19 @@ namespace AddMeFast
                     Driver.FindElementByCssSelector("a.single_like_button").Click();
 
                     Driver.SwitchTo().Window(Driver.WindowHandles.Last());
+                    ((IJavaScriptExecutor)Driver).ExecuteScript("window.resizeTo(2000, 1000);");
 
                     Thread.Sleep(new TimeSpan(0, 0, 7));
                     var boards = Driver.FindElementsByCssSelector("div[data-test-id='boardWithoutSection']");
-                    var save = Driver.FindElementsByCssSelector("[data-test-id='PinBetterSaveButton']");
+                    var save = Driver.FindElementsByCssSelector("[data-test-id='SaveButton']");
                     if (save != null && save.Count > 0  )
                     {
+                    
+                      
                         save[0].Click();
                         Thread.Sleep(new TimeSpan(0, 0, 4));
                         Console.WriteLine("pinned" + DateTime.Now.ToShortTimeString());
+                        Thread.Sleep(new TimeSpan(0, 0, 4));
                         Driver.Close();
                         Thread.Sleep(new TimeSpan(0, 0, 2));
                     }

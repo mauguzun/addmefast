@@ -2,3 +2,9 @@
 [1230/115832.018:ERROR:prune_crash_reports.cc(35)] PruneCrashReportDatabase: Failed to get pending reports
 [0205/084102.021:ERROR:prune_crash_reports.cc(35)] PruneCrashReportDatabase: Failed to get pending reports
 [0205/091011.578:ERROR:crash_report_database_win.cc(558)] GetFileAttributes C:\Users\mauguzun\AppData\Local\Temp\scoped_dir9892_1024937763\Crashpad: The system cannot find the file specified. (0x2)
+[0206/083910.641:ERROR:prune_crash_reports.cc(35)] PruneCrashReportDatabase: Failed to get pending reports
+[0305/190222.009:ERROR:prune_crash_reports.cc(35)] PruneCrashReportDatabase: Failed to get pending reports
+[0406/114523.810:ERROR:prune_crash_reports.cc(35)] PruneCrashReportDatabase: Failed to get pending reports
+[0430/084937.946:ERROR:file_io.cc(89)] ReadExactly: expected 36, observed 0
+[0430/090845.762:ERROR:file_io.cc(89)] ReadExactly: expected 36, observed 0
+[0504/154848.091:ERROR:filesystem_win.cc(148)] DeleteFile D:\temp\scoped_dir355680_1870244854\Crashpad\reports\4d7fc824-2912-4b58-836c-6c67cf970d6c.dmp: The process cannot access the file because it is being used by another process. (0x20)
